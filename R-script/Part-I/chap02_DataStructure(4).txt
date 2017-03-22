@@ -1,0 +1,60 @@
+﻿# 4. List : 서로 다른 데이터 구조
+# 성격이 다른 데이터(벡터, 행렬, 데이터프레임 등 모든 데이터)
+
+# 1) 1차원 리스트 
+
+# (1) 1차원 리스트 : 1개의 원소를 갖는 리스트
+list <- list("lee","이순신",95,"hong","홍길동",85)
+list # 전체 리스트 확인 
+list[[1]]  
+list[1]
+
+# list 구조 제거 -> vector
+vec_list <- unlist(list)        
+vec_list
+
+# (2) 1차원 리스트 : 2개 이상의 원소를 갖는 리스트
+num <- list(c(1:5), c(6:10))
+num[1]
+num[2]
+
+# (3) 1차원 리스트의 key = value 형식 
+num2 <- list(first=c(1:5), second=c(6:10)) # key = value형태로 저장      
+num2
+num2[[1]] # 첫번째 value 
+num2[1] # 첫번째 key, value 확인 
+
+# key -> value 참조 
+# 형식) 변수$키 
+num2$first
+num2$second
+
+# key, value 형태로 저장
+member <- list(name="홍길동",age = 35,address="한양",
+               gender="남자", htype="아파트")
+member
+
+# list 원소 접근 - 변수$키
+member$age <- 45  # 원소 수정 
+member$id <- "hong" # 원소 추가 
+member$pwd <- "1234" # 원소 추가       
+member$age <- NULL  # 원소 제거
+member
+
+# list의 데이터와 객체 타입 보기
+mode(list); class(list) # list, list
+
+length(member) # 5 -> 리스트 수
+
+# list data 처리 함수
+a <- list(c(1:5))
+b <- list(6:10)    
+
+lapply(c(a,b), max) # list로 결과 반환
+sapply(c(a,b), max)  # vactor로 결과 반환
+
+
+# 2) 다차원 리스트
+# - list 내의 list 자료구조 
+multi_list <- list(c1=list(1,2,3), c2=list(10,20,30), c3=list(100,200,300))
+multi_list

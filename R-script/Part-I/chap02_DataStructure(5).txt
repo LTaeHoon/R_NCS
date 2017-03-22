@@ -1,0 +1,79 @@
+﻿# 5. Data Frame : 행과 열의 2차원 자료구조, DB의 Table구조와 동일  
+
+# 1) Vector이용 객체 생성
+no <- c(1,2,3)
+name <- c("hong", "lee", "kim")
+pay <- c(150,250,300)
+vemp <- data.frame(NO=no, Name=name, Pay=pay) #컬럼명 지정 
+vemp
+
+# 2) matrix이용 객체 생성
+m <- matrix(
+  c(1,"hong",150,
+    2, "lee", 250,
+    3, "kim", 300) ,3 ,by=T) # 행우선, 3개 리스트 생성
+memp <- data.frame(m)      
+memp
+
+# 3) txt파일 이용 객체 생성
+getwd()
+setwd("C:/Rwork/Part-I") 
+txtemp <- read.table('emp.txt', header=T, sep="") # 제목있음, 공백구분
+txtemp
+class(txtemp) # "data.frame"
+
+# 4) csv파일 이용 객체 생성
+csvtemp <- read.csv('emp.csv', header=T) # 제목있음, 컴마구분
+csvtemp
+class(csvtemp) # "data.frame"
+
+# 급여의 평균과 합계 구하기 
+pay <- csvtemp$급여 # 칼럼 -> vector 
+
+avg = mean(pay)
+tot = sum(pay)
+avg; tot
+
+# 컬럼명이 없는 파일인 경우
+name <- c("사번","이름","급여")
+read.csv('emp2.csv', header=F, col.names=name)    
+
+# 데이터프레임 객체 데이터 셋  
+install.packages("psych") #　패키지 설치
+library(psych) # 패키지 로드
+data(galton) # galton 데이터 셋 가져오기 
+str(galton) 
+
+
+# 5) apply() 함수 적용 : 데이터프레임 객체에 apply() 적용
+
+r1 <- c(100,80,90)
+r2 <- c(90,80,75)
+r3 <- c(86,78,95)    
+Data <-data.frame(r1=r1, r2=r2, r3=r3)
+Data
+
+apply(Data, 1, min) # 열 단위 함수 적용 - 86 78 75
+apply(Data, 2, min) # 행 단위 함수 적용 - 80 75 78 
+
+
+# 6) 서브셋 만들기 - subset(DF, 조건식)   
+x <- 1:5
+y <- 6:10
+df <- data.frame(x, y)
+df
+
+x1 <- subset(df, x>=3) # x가 3이상인 레코드 대상       
+x1; class(x1)
+y1 <- subset(df, y<=8) # y가 8이하인 레코드 대상 
+y1
+
+
+# 7) Data join : 칼럼 값으로 기준으로  두 개의 프레임 연결    
+
+height <- data.frame(id=c(1,2), h=c(180,175))
+weight <- data.frame(id=c(1,2), w=c(80,75))
+
+user <- merge(height, weight, by.x="id", by.y="id")
+user
+
