@@ -1,0 +1,67 @@
+﻿################################
+### Part-II 총정리
+################################
+election <- read.csv(file.choose()) # election_2012.csv
+str(election)
+# 'data.frame':	1001731 obs. of  16 variables:
+# 2. cand_id : 대선후보자 id
+# 3. cand_nm : 대선후보자 이름
+# 4. contbr_nm : 후원자 이름 
+# 5. contbr_city : 후원자 도시 
+# 9. contbr_occupation : 후원자 직업군 
+# 10. contb_receipt_amt: 후원금 
+# 11. contb_receipt_dt:후원날짜 
+
+
+# 위 7개 칼럼을 대상으로 데이터 프레임을 생성한다.
+election_df2 <- election[c(2:5,9:11)]
+str(election_df2) # 'data.frame':	1001731 obs. of  7 variables:
+dim(election_df2) # 1001731       7
+summary(election_df2) # - contbr_occupation(128 NA)
+
+
+## chapter 07 ##
+
+# 문1) 직업군 칼럼을 대상으로 NA를 포함하는 관측치를 제외하여 clean_election 변수에 저장하시오.
+# <조건> 전처리 전과 후 관측치 수의 차이? 
+#   힌트) subset(), is.na() 함수 이용 
+
+
+# 문2) clean_election 변수를 대상으로 10만개 관측치만 샘플링하여 clean_election2 변수에 저장하시오.
+#  힌트) sample() 함수 이용
+
+# 문3) 직업군의 문자열 길이가 20개을 초과한 경우 끝에서 10개 문자열로 직업군의 칼럼을 수정하는 함수를 정의하시오.
+#   힌트) stringr 패키지 : str_sub(), str_length() 함수 이용
+
+# <조건1> 대상 변수 : clean_election2 
+# <조건2> 함수명 : clean_data
+# <조건3> 수정된 내용으로 직업군 칼럼 수정 
+
+## chapter 05 ## 
+
+# 문4) romney와 obama의 후원자 직업군 빈도수가 상위 10위 해당하는 데이터를 이용하여 시각화 하시오
+# <조건1> 작업 대상 변수 : clean_election2
+# <조건2> 막대차트 시각화 - 무지개 색 적용, 후원자의 직업군을 x축 눈금 이름으로 표시
+# <조건3> 파이 차트 시각화 : romney와 obama 후보자 동시 표현, cex=1.2 속성 지정 
+
+## chapter 07 ##
+# 문5) romney와 obama 후보자 별로 다음과 같이 후원금 칼럼을 처리하시오.
+# <조건1> 각 후보자별로 이상치(음수)를 발견하여 정제
+# <조건2> 각 후보자별로 정제 전과 후 관측치의 차이 계산  
+# <조건3> 각 후보자별로 가장 많은 후원금 찾기 
+
+
+## chapter 09 : 정형 데이터 처리 ##
+# 문6) clean_election2 변수 내용을 대상으로 다음과 같이 테이블에 저장하시오.
+# <조건1> 대상 칼럼 : contb_receipt_dt, cand_nm, contbr_nm, contb_receipt_amt
+# <조건2> 테이블명 : election 
+# <조건3> 칼럼명(자료형) : receipt_date(date), caname(varchar(50), ctname(varchar50)), receipt_amt(int)  
+# <조건4> 다국어 적용 : 후원일짜 대한민국 표준날짜형식으로 변경 후 DB 저장  
+# <조건5> MariaDB 사용 
+
+
+## chapter 09 : 비정형 데이터 처리 ##
+# 문7) 후원도시 칼럼을 대상으로 단어 빈도 분석을 통해서 단어구름으로 시각화하시오.
+# <조건1> 대상 변수 : clean_election2$contbr_city[1:2000]
+# <조건2> 토픽분석 6 ~ 10단계 적용 
+# <조건3> 단어 길이 : 2 ~ 8자 대상 
